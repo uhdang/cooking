@@ -14,16 +14,10 @@ public class UserController {
 
     private UserRepository userRepository;
 
-    @GetMapping(path="/add") // Map ONLY GET Requests
-    public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String email) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
-        User n = new User();
-        n.setName(name);
-        n.setEmail(email);
-        userRepository.save(n);
-        return "Saved";
+    @PostMapping(path="/add")
+    public @ResponseBody String addNewUser (@RequestBody User user) {
+        userRepository.save(user);
+        return "New user saved";
     }
 
     @GetMapping(path="/all")
@@ -31,4 +25,18 @@ public class UserController {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
+
+//    @GetMapping(path="/add") // Map ONLY GET Requests
+//    public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String email) {
+//        // @ResponseBody means the returned String is the response, not a view name
+//        // @RequestParam means it is a parameter from the GET or POST request
+//
+//        User n = new User();
+//        n.setName(name);
+//        n.setEmail(email);
+//        userRepository.save(n);
+//        return "Saved";
+//    }
 }
+
+
